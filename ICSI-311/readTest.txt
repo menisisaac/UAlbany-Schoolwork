@@ -1,0 +1,166 @@
+define start()
+variables
+    x, y, z : integer
+begin
+    x := (6+5) - 6 + 34 * 6 - 6
+    write x
+end
+
+
+
+
+define constantTest(x, y : integer, var hello : integer)
+begin
+    getCircle
+    hello := x + y
+    write hello
+end
+
+define start()
+variables
+    i , j, k: integer
+    str, strTwo : String
+    character : char
+    isVariable : boolean
+begin
+    getCircle
+    j := 65
+    i := -j + 7
+    write i
+    constantTest j i var k
+    read i str
+    write k
+    write str
+    character := 'j'
+    isVariable := false
+    str := "Hi"
+    isVariable := true
+    strTwo := "Bye"
+    if (8 < 7) then
+    begin
+    write "Hi Isaac"
+    end
+    elsif 2 < 3 then
+    begin
+    write "Holy"
+    end
+    else
+    begin
+    write "Moly"
+    end
+
+
+    character := 'y'
+    str := str + strTwo + character
+    write str
+    repeat
+    begin
+    i := i + 1
+    write "I am almost done" i
+    end
+    until i > 5
+end
+
+define test()
+constants
+    pi = 3.14
+    text = 3
+    giggle = "Hello"
+variables
+    x, y, sum : integer
+    t, k, u : real
+    a, s, d : char
+    i, o, p : String
+begin
+    x := 1
+    y := 5
+    t := 6.0
+    u := 0.0
+    areaOfCircle t, u
+    write u
+    sum := 0
+    add x, y, var sum
+    write sum
+end
+
+define add(x, y : integer; var sum : integer)
+variables
+    yMinusOne, xPlusOne, newSum : integer
+begin
+    if y = 0 then
+            begin
+                sum := x
+            end
+    else
+            begin
+            xPlusOne := x + 1
+            yMinusOne := y - 1
+            add xPlusOne, yMinusOne, var newSum
+            sum := newSum
+            end
+end
+
+define multiply(x, y:integer, letter : char, var sum56: integer)
+variables
+    counter : integer
+    answer : real
+begin
+    counter := y
+    sum56 := 89
+    IntegerToReal sum56 var answer
+    squareRoot 49, var answer
+    GetRandom var sum56
+    if 6 < 7 then
+    begin
+    write letter
+    write answer
+    end
+    else
+    begin
+    write 9
+    sum56 := 56
+    end
+    sum56 := x + +5 * (10 - 11)
+    for sum56 from 6 to 10
+    begin
+        write x
+    end
+    while counter > 0
+    begin
+        counter := counter - 1
+        sum56 := sum56 + x
+    end
+    write sum56
+
+end
+
+define double(x : integer, var sum : integer)
+begin
+sum := x * 2
+end
+
+define half(x : real, var quotient : real)
+begin
+quotient := x / 2.0
+end
+
+define areaOfCircle(x : real, var answer : real)
+constants
+    pi = 3.1419
+begin
+    answer := x * pi * x
+end
+
+define getCircle()
+variables
+    diameter : real
+    name : String
+    circle : real
+begin
+    write "Give circle name: "
+    read var name
+    write "Give circle diameter: "
+    read var diameter
+    circle := diameter/-2.0 * diameter/2.0 * 3.14
+    write name "has a area of " circle
+end

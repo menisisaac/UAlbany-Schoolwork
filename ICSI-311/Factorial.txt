@@ -1,0 +1,25 @@
+define start()
+constants
+    number = 8
+variables
+    product : integer
+begin
+    product := number
+    factorial 8 product
+end
+
+define factorial(currNumber : integer, var product : integer)
+variables
+    nextNumber: integer
+begin
+    nextNumber := currNumber - 1
+    if nextNumber = 0 then
+    begin
+        write product
+    end
+    else
+    begin
+    product := nextNumber * product
+    factorial nextNumber product
+    end
+end

@@ -1,0 +1,221 @@
+define start()
+variables
+    x1, x2, x3, y1, y2, y3, z1, z2, z3 : integer
+    count : boolean
+    answer : integer
+    gameplay : boolean
+begin
+    while gameplay
+    begin
+        print x1, x2, x3, y1, y2, y3, z1, z2, z3
+
+        if (count) then
+            begin
+            write "Player 1 enter choice"
+            read var answer
+            if answer = 1 then
+            begin
+                x1 := 1
+                count := false
+            end
+            elsif answer = 2 then
+            begin
+                x2 := 1
+                count := false
+            end
+            elsif answer = 3 then
+            begin
+                x3 := 1
+                count := false
+            end
+            elsif answer = 4 then
+            begin
+                y1 := 1
+                count := false
+            end
+            elsif answer = 5 then
+            begin
+                y2 := 1
+                count := false
+            end
+            elsif answer = 6 then
+            begin
+                y3 := 1
+                count := false
+            end
+            elsif answer = 7 then
+            begin
+                z1 := 1
+                count := false
+            end
+            elsif answer = 8 then
+            begin
+                z2 := 1
+                count := false
+            end
+            elsif answer = 9 then
+            begin
+                x3 := 1
+                count := false
+            end
+            else
+            begin
+                write "Choice not valid"
+            end
+        end
+        else
+        begin
+            write "Player 2 enter choice"
+            read var answer
+            if answer = 1 then
+            begin
+                x1 := 2
+                count := true
+            end
+            if answer = 2 then
+            begin
+                x2 := 2
+                count := true
+            end
+            if answer = 3 then
+            begin
+                x3 := 2
+                count := true
+            end
+            if answer = 4 then
+            begin
+                y1 := 2
+                count := true
+            end
+            if answer = 5 then
+            begin
+                y2 := 2
+                count := true
+            end
+            if answer = 6 then
+            begin
+                y3 := 2
+                count := true
+            end
+            if answer = 7 then
+            begin
+                z1 := 2
+                count := true
+            end
+            if answer = 8 then
+            begin
+                z2 := 2
+                count := true
+            end
+            if answer = 9 then
+            begin
+                z3 := 2
+                count := true
+            end
+            else
+            begin
+                write "Choice not valid"
+            end
+        end
+        if x1 = x2 then
+        begin
+            if x2 = x3 then
+            begin
+                if x1 <> 0 then
+                begin
+                    write "Player " x1 " wins !!!!!"
+                    gameplay := false
+                end
+            end
+        end
+        if x1 = y1 then
+        begin
+            if y1 = z1 then
+            begin
+                if x1 <> 0 then
+                begin
+                    write "Player " x1 " wins !!!!!"
+                    gameplay := false
+                end
+            end
+        end
+        if x1 = y2 then
+        begin
+            if y2 = z3 then
+            begin
+                if x1 <> 0 then
+                begin
+                    write "Player " x1 " wins !!!!!"
+                    gameplay := false
+                end
+            end
+        end
+        if y1 = y2 then
+        begin
+            if y2 = y3 then
+            begin
+                if y2 <> 0 then
+                begin
+                    write "Player " y2 " wins !!!!!"
+                    gameplay := false
+                end
+            end
+        end
+        if z1 = z2 then
+        begin
+            if z2 = z3 then
+            begin
+                if z1 <> 0 then
+                begin
+                    write "Player " z1 " wins !!!!!"
+                    gameplay := false
+                end
+            end
+        end
+        if z1 = y2 then
+        begin
+            if y2 = x3 then
+            begin
+                if z1 <> 0 then
+                begin
+                    write "Player " z1 " wins !!!!!"
+                    gameplay := false
+                end
+            end
+        end
+        if x2 = y2 then
+        begin
+            if y2 = z2 then
+            begin
+                if x2 <> 0 then
+                begin
+                    write "Player " x2 " wins !!!!!"
+                    gameplay := false
+                end
+            end
+        end
+        if x3 = y3 then
+        begin
+            if y3 = z3 then
+            begin
+                if x3 <> 0 then
+                begin
+                    write "Player " x3 " wins !!!!!"
+                    gameplay := false
+                end
+            end
+        end
+    end
+end
+
+define print(q,w,e,r,t,y,u,i,o : integer)
+begin
+write "=======  Choose from 0s"
+write "=" q "=" w "=" e "=  =1=2=3="
+write "=======  ======="
+write "=" r "=" t "=" y "=  =4=5=6="
+write "=======  ======="
+write "=" u "=" i "=" o "=  =7=8=9="
+write "=======  ======="
+end
+

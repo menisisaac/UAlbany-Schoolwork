@@ -1,0 +1,8 @@
+1. Both threads are accessing the global variable at same time so they are not using
+the most up to date sum 
+
+2. Task 2: 0.503 Total
+Task 3: 0.015 Total
+
+3. In task 2 each thread is waiting for the other one to add each number to the sum 500000 times,
+while in task 3 they sum individually first and then only wait one to interact with the global sum

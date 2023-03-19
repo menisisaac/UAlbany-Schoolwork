@@ -1,0 +1,71 @@
+define test (var args:integer, jklj:real)
+constants
+    pi = 3.145
+variables
+    yMinusOne, xPlusOne, newSum : real
+begin
+    if 7 <> 5 then
+    begin
+    end
+    xPlusOne := 2 + 1
+    yMinusOne := 4 - newSum
+    rate := 7 mod 8 * 6 - 3 /7
+    while(6 > 7)
+    begin
+        rate := 6
+    end
+    repeat
+    begin
+        rate := 6 * 7
+    end
+    until (7 < 5)
+    if 7 < 5 then
+    begin
+        rate := 5453
+    end
+    elsif 4 > 2 then
+    begin
+        rate := 42342
+    end
+    for xPlusOne from 4 to 3
+    begin
+        rate := 4342
+    end
+    addThree 6, 7, 3
+end
+
+define add (isaac:integer, alice:real)
+constants
+    pi = 3.145
+variables
+    yMinusOne, xPlusOne, newSum : real
+begin
+    if 7 <> 5 then
+    begin
+    end
+    xPlusOne := 2 + 1
+    yMinusOne := 4 - newSum
+    rate := 7 mod 8 * 6 - 3 /7
+    while(6 > 7)
+    begin
+        rate := 6
+    end
+    repeat
+    begin
+        rate := 6 * 7
+    end
+    until (7 < 5)
+    if 7 < 5 then
+    begin
+        rate := 5453
+    end
+    elsif 4 > 2 then
+    begin
+        rate := 42342
+    end
+    for xPlusOne from 4 to 3
+    begin
+        rate := 4342
+    end
+    addThree 6, 7, 3
+end
