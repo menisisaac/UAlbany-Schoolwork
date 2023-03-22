@@ -297,6 +297,13 @@ public class FileManagerTest {
 		out.println(removals + " removals % " + m);
 		ArrayList<Object> list = SlottedPageTest.list(m.iterator(0));
 		out.println("iteration over " + list.size() + " elements % " + m);
+		Iterator<Object> iter = m.iterator(1);
+		while(true) {
+			System.out.print(iter.next());
+			if(!iter.hasNext()) {
+				break;
+			}
+		}
 		m.shutdown();
 		out.println("shut down % " + m);
 	}

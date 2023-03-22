@@ -127,7 +127,6 @@ public class FileManager implements StorageManager<Long, Object> {
 		try {
 			pastData = p.put(second(location), o);
 		} catch (IOException | OverflowException | IndexOutOfBoundsException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		updated(p, fileID);
@@ -158,7 +157,6 @@ public class FileManager implements StorageManager<Long, Object> {
 		try {
 			return p.get(second(location));
 		} catch (IndexOutOfBoundsException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -182,8 +180,6 @@ public class FileManager implements StorageManager<Long, Object> {
 	 */
 	@Override
 	public Object remove(int fileID, Long location) throws IOException, InvalidLocationException {
-		// SlottedPage p = page(fileID, first(location)); // the page specified by the 1st half of the location
-		// TODO complete this method (5 points)
 		if (first(location) < 0 || second(location) < 0)
 			throw new InvalidLocationException();
 		SlottedPage p = page(fileID, first(location)); // the page specified by the 1st half of the location		
@@ -222,7 +218,6 @@ public class FileManager implements StorageManager<Long, Object> {
 	 */
 	@Override
 	public Iterator<Object> iterator(int fileID) {
-		// TODO complete this method (5 points)
 		int[] files = new int[id2file.size()];
 		int j = 0;
 		for(int i : id2file.keySet()) {
@@ -275,7 +270,6 @@ public class FileManager implements StorageManager<Long, Object> {
 					}
 					return currPage.iterator();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				return null;

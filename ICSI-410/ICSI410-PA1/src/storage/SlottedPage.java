@@ -89,11 +89,11 @@ public class SlottedPage implements Iterable<Object> {
 	 *             if this {@code SlottedPage} cannot accommodate the specified object
 	 */
 	public int add(Object o) throws IOException, OverflowException {
-		// TODO complete this method (20 points)
+
 		int location = save(o);
 		int index = entryCount();
 		saveLocation(index, location); 
-		setEntryCount(index + 1); 
+		setEntryCount(index + 1); 		//Sets entry count after saving data in case save fails 
 		return index;
 	}
 
@@ -111,7 +111,6 @@ public class SlottedPage implements Iterable<Object> {
 	 *             if an I/O error occurs
 	 */
 	public Object get(int index) throws IndexOutOfBoundsException, IOException {
-		// TODO complete this method (20 points)
 		if (index < 0 || index > entryCount() - 1) {
 			throw new IndexOutOfBoundsException();
 		}
@@ -149,7 +148,6 @@ public class SlottedPage implements Iterable<Object> {
 			}
 		}
 		if(index == entryCount()) {
-			System.out.print("Hi");
 			saveLocation(index, save(o));
 			setEntryCount(entryCount() + 1);
 		}
@@ -170,7 +168,6 @@ public class SlottedPage implements Iterable<Object> {
 	 *             if an I/O error occurs
 	 */
 	public Object remove(int index) throws IndexOutOfBoundsException, IOException {
-		// TODO complete this method (10 points)
 		if(index < 0 || index >= entryCount()) {
 			throw new IndexOutOfBoundsException();
 		}
@@ -191,10 +188,12 @@ public class SlottedPage implements Iterable<Object> {
 		Iterator<Object> iterator = new Iterator<Object>() {
 			private int index = 0;
 
+			//Checks if iterator reaches end of file 
 			@Override
 			public boolean hasNext() {
 				return (index = hasNext(index)) > -1;
 			}
+			//Always returns a valid data item 
 			@Override
 			public Object next()  {
 				Object currdata = null;
@@ -209,7 +208,7 @@ public class SlottedPage implements Iterable<Object> {
 				
 				
 			}
-			
+			//Sets next valid index, -1 if no more elements
 			private int hasNext(int i) {
 				if(i > entryCount() - 1) {
 					return -1;
@@ -234,7 +233,8 @@ public class SlottedPage implements Iterable<Object> {
 	 * @throws OverflowException 
 	 */
 	protected void compact() throws IOException, OverflowException {
-		setStartOfDataStorage(data.length - Integer.BYTES);
+		setStartOfDataStorage(data.length - Integer.BYTES);				//Resets data start location back to end of file 
+		//Goes through every valid entry and moves it as far right as possible 
 		for(int i = 0; i < entryCount(); i++) {
 			int location = getLocation(i);
 			if(location != -1) {
