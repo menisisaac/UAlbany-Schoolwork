@@ -58,7 +58,6 @@ public class Interpreter {
             } else if (temp.getInstanceType() == MathOpNode.operator.SUBTRACT) {
                 return new IntegerNode(((IntegerNode)left).getValue() - ((IntegerNode)right).getValue());
             }
-
         }
         throw new RuntimeException("Runtime Exception: Bad Operation");
     }
