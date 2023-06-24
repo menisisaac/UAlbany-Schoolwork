@@ -91,8 +91,7 @@ public class IRGeneration {
             }
         }
     }
-    void
-    compileFunctionCallNode(String name, FunctionCallNode fcn) {
+    void compileFunctionCallNode(String name, FunctionCallNode fcn) {
         String result = "call @" + fcn.getName();
         if (fcn.getName().equals("write")) {
             result = "print";
