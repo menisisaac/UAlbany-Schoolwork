@@ -1,7 +1,7 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 
 public class IRGeneration {
     final private HashMap<String, CallableNode> functions;
@@ -11,6 +11,7 @@ public class IRGeneration {
     private int floating = 0;
     private int ifStatements = 0;
     private int bool = 0;
+
     public IRGeneration(HashMap<String, CallableNode> f) {
         functions = f;
     }
@@ -23,29 +24,22 @@ public class IRGeneration {
     }
     public void compileFunction(String name, CallableNode function) {
         bril.put(name, new ArrayList<String>());
-        String header = "@" + name + "(";
-        if (function.getParameters() != null) {
-            for (VariableNode param : function.getParameters()) {
-                switch (param.getDataType()) {
-                    case integer:
-                        header += param.getName() + ": " + "int, ";
-                        break;
-                    case real:
-                        header += param.getName() + ": " + "float, ";
-                        break;
-                    case charType:
-                        header += param.getName() + ": " + "char, ";
-                        break;
-                }
-            }
-            if (function.getParameters().size() > 0)
-                header = header.substring(0, header.length() - 2);
-        }
-        header += ") {";
-        bril.get(name).add(header);
+        compileHeader(name, function.getParameters());
         FunctionDefinition fun = (FunctionDefinition)function;
-        if (fun.getConstants() != null) {
-            for (VariableNode constant : fun.getConstants()) {
+        compileConstants(name, fun.getConstants());
+        for (VariableNode vn : fun.getParameters()) {
+            fun.getVariables().add(vn);
+        }
+        compileStatements(name, fun.getStatementNodes(), fun.getVariables());
+
+        if (!fun.getName().equals("start"))
+            bril.get(name).add("ret;");
+
+        bril.get(name).add("}");
+    }
+    public void compileConstants(String name, HashSet<VariableNode> constants) {
+        if (constants != null) {
+            for (VariableNode constant : constants) {
                 switch (constant.getDataType()) {
                     case integer:
                         bril.get(name).add(constant.getName() + ": " + "int = const " + ((IntegerNode)constant.getValue()).getValue() + ";");
@@ -59,15 +53,40 @@ public class IRGeneration {
                 }
             }
         }
-        compileStatements(name, fun.getStatementNodes(), fun.getVariables());
-
-
-
-        bril.get(name).add("}");
-        for(String str : bril.get(name)) {
-            System.out.println(str);
-        }
     }
+
+
+
+
+
+    public void compileHeader(String name, List<VariableNode> params) {
+        String header = "@" + name + "(";
+        if (name.equals("start")) {
+            header = "@main(";
+        }
+        if (params != null) {
+            for (VariableNode param : params) {
+                header += param.getName() + ": ";
+                switch (param.getDataType()) {
+                    case integer:
+                        header += "int, ";
+                        break;
+                    case real:
+                        header += "float, ";
+                        break;
+                    case charType:
+                        header += "char, ";
+                        break;
+                }
+            }
+            if (params.size() > 0)
+                header = header.substring(0, header.length() - 2);
+        }
+        header += ") {";
+        bril.get(name).add(header);
+    }
+
+
     public void compileStatements(String name, List<statementNode> statements, HashSet<VariableNode> variables) {
         if (statements != null) {
             for (statementNode sn : statements) {
@@ -91,6 +110,7 @@ public class IRGeneration {
             }
         }
     }
+
     void compileFunctionCallNode(String name, FunctionCallNode fcn) {
         String result = "call @" + fcn.getName();
         if (fcn.getName().equals("write")) {
@@ -99,6 +119,10 @@ public class IRGeneration {
         for (ParameterNode pn : fcn.getParameters()) {
             if (pn.getParameter() instanceof VariableReferenceNode) {
                 result += " " + ((VariableReferenceNode) pn.getParameter()).getName();
+            } else if (pn.getParameter() instanceof VariableNode) {
+                result += " " + ((VariableNode) pn.getParameter()).getName();
+            } else if (pn.getParameter() instanceof IntegerNode) {
+                result += " " + compileIntExpression(name, pn.getParameter());
             }
         }
         bril.get(name).add(result + ";");
@@ -186,10 +210,25 @@ public class IRGeneration {
             integer++;
             return target;
         }
-        return "";
-        //throw new RuntimeException("Runtime Exception: Bad Operation");
+        throw new RuntimeException("Runtime Exception: Bad Operation");
     }
 
+    public HashMap<String, ArrayList<String>> getBril() {
+        return bril;
+    }
+    public void generateFile() {
+        try {
+            FileWriter writer = new FileWriter("intermediate.bril");
+            for (String fun : bril.keySet()) {
+                for (String line : bril.get(fun)) {
+                    writer.write(line + System.getProperty( "line.separator" ));
+                }
+            }
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 

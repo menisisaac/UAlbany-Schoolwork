@@ -46,6 +46,13 @@ public class Shank {
                 HashMap<String, CallableNode> functions = Interpreter.functions;
                 IRGeneration irg = new IRGeneration(functions);
                 irg.compileFunctions();
+                irg.generateFile();
+                for (String fun : irg.getBril().keySet()) {
+                    for(String str : irg.getBril().get(fun)) {
+                        System.out.println(str);
+                    }
+                }
+
                 //Interpreter.start();
 
             } catch (Exception e) {
